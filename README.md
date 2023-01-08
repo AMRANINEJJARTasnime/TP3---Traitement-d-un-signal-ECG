@@ -140,6 +140,7 @@ musculaire extracardiaque du patient. La quantité de bruit est proportionnelle 
 largeur de bande du signal ECG. Une bande passante élevée donnera plus de bruit 
 dans les signaux, et limiter la bande passante peut enlever des détails importants du 
 signal. 
+
 7. Chercher un compromis sur la fréquence de coupure, qui permettra de préserver 
 la forme du signal ECG et réduire au maximum le bruit. Tester différents choix, puis
 tracer et commenter les résultats.
