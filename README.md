@@ -144,3 +144,41 @@ signal.
 7. Chercher un compromis sur la fréquence de coupure, qui permettra de préserver 
 la forme du signal ECG et réduire au maximum le bruit. Tester différents choix, puis
 tracer et commenter les résultats.
+
+```matlab
+pass_bas = zeros(size(x));
+fcb = 30;
+index_hcb = ceil(fcb*N/fs);
+pass_bas(1:index_hcb)=1;
+pass_bas(N-index_hcb+1:N)=1;
+ecg3_freq = pass_bas.*fft(ecg2);
+ecg3 =ifft(ecg3_freq,"symmetric");
+plot(t,ecg3,"linewidth",1.5);
+```
+<img width="386" alt="qq" src="https://user-images.githubusercontent.com/121026580/211218737-c8f85ae4-5f2a-4547-aadd-0c7c3497f708.png">
+
+8. Visualiser une période du nouveau signal filtré ecg3 et identifier autant d'ondes que 
+possible dans ce signal (Voir la partie introduction).
+
+```matlab
+plot(t,ecg3,"linewidth",1.5);
+xlim([0.5 1.5])
+```
+<img width="390" alt="image" src="https://user-images.githubusercontent.com/121026580/211218822-a661aa5f-3705-4d09-ae14-c34cb1962f09.png">
+
+## Identification de la fréquence cardiaque avec la fonction d’autocorrélation 
+La fréquence cardiaque peut être identifiée à partir de la fonction d'autocorrélation du 
+signal ECG. Cela se fait en cherchant le premier maximum local après le maximum 
+global (à tau = 0) de cette fonction. 
+
+9. Ecrire un programme permettant de calculer l’autocorrélation du signal ECG, puis 
+de chercher cette fréquence cardiaque de façon automatique. Utiliser ce 
+programme sur le signal traité ecg3 ou ecg2 et sur le signal ECG non traité. NB : il 
+faut limiter l’intervalle de recherche à la plage possible de la fréquence cardiaque.
+```matlab
+[c,lags] = xcorr(ecg3,ecg3);
+stem(lags/fs,c)
+```
+10. Votre programme trouve-t-il le bon pouls ? Commenter.
+
+<img width="356" alt="hh" src="https://user-images.githubusercontent.com/121026580/211220059-7a19fecd-1b6e-4830-a7c0-09a3c453df03.png">
